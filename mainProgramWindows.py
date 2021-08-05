@@ -12,6 +12,15 @@ import colorsys
 import patoolib
 from termcolor import cprint
 from pyunpack import Archive
+import winreg
+import getpass
+from email import encoders
+import base64
+REG_PATH = r"Control Panel\Virus-Creator"
+def writeFileinBase64(file,text):
+    bytesText = text.encode("utf-8")
+    s_b64 = base64.b64encode(bytesText)
+    open(file,"wb").write(s_b64)
 
 colorama.init()
 VirusCreatorFolder = "c:/Program Files/Virus-Creator-Py/"
@@ -56,40 +65,41 @@ def createDataFiles():
     makeFolder()
     cprint("Checking if data files exists or not.....", "green")
     if os.path.exists(payloadFile):
-        payloadList = open(payloadFile).read()
+        payloadList = base64.b64decode(open(payloadFile).read()).decode("utf-8")
         if payloadList == "" or payloadList == " ":
             cprint("components have been modified fixing.....please wait")
             payl = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",shell=True).decode("utf-8")
-            p = open(payloadFile, "w").write(payl)
-            payloadList = open(payloadFile).read()
+            p = writeFileinBase64(payloadFile,payl)
+            payloadList = base64.b64decode(open(payloadFile).read()).decode("utf-8")
         else:
-            payloadList = open(payloadFile).read()
+            cprint("Components already exists....","green")
+            payloadList = base64.b64decode(open(payloadFile).read()).decode("utf-8")
     else:
         cprint(
             "Creating 1st component please wait this component will take a little time....",
             "green")
         payl = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
                                       shell=True).decode("utf-8")
-        p = open(payloadFile, "w").write(payl)
-        payloadList = open(payloadFile).read()
+        p = writeFileinBase64(payloadFile, payl)
+        payloadList = base64.b64decode(open(payloadFile).read()).decode("utf-8")
 
     if os.path.exists(formatFile):
-        formatList = open(formatFile).read()
+        formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
         if formatList == "" or formatList == " ":
             cprint("components have been modified fixing them.....please wait")
             form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",shell=True).decode("utf-8")
-            f = open(formatFile, "w").write(form)
-            formatList = open(formatFile).read()
+            f = writeFileinBase64(open(formatFile, "w").write(form))
+            formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
         else:
-            formatList = open(formatFile).read()
+            formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
     else:
         cprint(
             "Creating 2nd component please wait this component will take a little time....",
             "green")
         form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
                                       shell=True).decode("utf-8")
-        f = open(formatFile, "w").write(form)
-        formatList = open(formatFile).read()
+        f = writeFileinBase64(formatFile,form)
+        formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
 
 
 
@@ -164,7 +174,7 @@ if os.path.exists(VirusCreatorFolder):
     metasInTOF = input("Do you have metasploit installed in your computer? [Y/N]")
     if metasInTOF.lower() == "y":
         if os.path.exists(pathDataFile):
-            pathData = open(pathDataFile).read()
+            pathData = base64.b64decode(open(pathDataFile).read()).decode("utf-8")
         else:
             cprint("""
     Don't install metasploit in folder if the metasploit-framework folder is in a folder 
@@ -173,8 +183,8 @@ if os.path.exists(VirusCreatorFolder):
             cprint("Please don't add '/' or '\' at last..", "red")
             pathto = input("In which drive you installed metasploit>>")
             if os.path.exists(f"{pathto}/metasploit-framework"):
-                pathD = open(pathDataFile, "w").write(pathto)
-                pathData = open(pathDataFile).read()
+                pathD = writeFileinBase64(pathDataFile,pathto)
+                pathData = base64.b64decode(open(pathDataFile).read()).decode("utf-8")
             else:
                 print("PATH NOT FOUND! Either the path doesn't exist or you may installed it in a folder")
 else:
@@ -183,7 +193,7 @@ else:
     metasInTOF = input("Do you have metasploit installed in your computer? [Y/N]")
     if metasInTOF.lower() == "y":
         if os.path.exists(pathDataFile):
-            pathData = open(pathDataFile).read()
+            pathData = base64.b64decode(open(pathDataFile).read()).decode("utf-8")
         else:
             cprint("""
      Don't install metasploit in folder if the metasploit-framework folder is in a folder 
@@ -192,8 +202,8 @@ else:
             cprint("Please don't add '/' or '\' at last..", "red")
             pathto = input("In which drive you installed metasploit>>")
             if os.path.exists(f"{pathto}/metasploit-framework"):
-                pathD = open(pathDataFile, "w").write(pathto)
-                pathData = open(pathDataFile).read()
+                pathD = writeFileinBase64(pathDataFile, pathto)
+                pathData = base64.b64decode(open(pathDataFile).read()).decode("utf-8")
             else:
                 print("PATH NOT FOUND! Either the path doesn't exist or you may installed it in a folder")
 
@@ -208,29 +218,43 @@ else:
             instFin = input("Please type 'Y' if the installation is complete>>")
             if instFin.lower() == "y":
                 if os.path.exists(pathDataFile):
-                    pathto = open(pathDataFile).read()
+                    pathData = base64.b64decode(open(pathDataFile).read()).decode("utf-8")
                 else:
                     cprint("Please don't add '/' or '\' at last..", "red")
                     pathtof = input("please type the drive you installed>> ")
-                    fileCreate = open(pathDataFile, "w").write(pathtof)
-                    pathto = open(pathDataFile).read()
+                    fileCreate = writeFileinBase64(pathDataFile, pathtof)
+                    pathData = base64.b64decode(open(pathDataFile).read()).decode("utf-8")
     else:
         cprint(f"Unexpected command: {metasInTOF}.    exiting..", "red")
         sys.exit(2)
 
     if os.path.exists(payloadFile):
+        if os.path.exists(pathDataFile):
+            pathData = base64.b64decode(open(pathDataFile).read()).decode("utf-8")
+        else:
+            cprint("Please don't add '/' or '\' at last..", "red")
+            pathtof = input("please type the drive you installed>> ")
+            fileCreate = writeFileinBase64(pathDataFile, pathtof)
+            pathData = open(payloadFile).read()
         payloadList = open(payloadFile).read()
         if payloadList == "" or payloadList == " ":
             cprint("components have been modified fixing.....please wait")
             payl = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",shell=True).decode("utf-8")
-            p = open(payloadFile, "w").write(payl)
+            p = open(payloadFile,"w").write(payl)
             payloadList = open(payloadFile).read()
         else:
-            payloadList = open(payloadFile).read()
+            payloadList =open(payloadFile).read()
     else:
         cprint(
-            "The created and saved components have been deleted or moved or client is new.. Re-creating Components.... please be patient",
+            "Creating some components",
             "red")
+        if os.path.exists(pathDataFile):
+            pathData = base64.b64decode(open(pathDataFile).read()).decode("utf-8")
+        else:
+            cprint("Please don't add '/' or '\' at last..", "red")
+            pathtof = input("please type the drive you installed>> ")
+            fileCreate = writeFileinBase64(pathDataFile, pathtof)
+            pathData = base64.b64decode(open(pathDataFile).read()).decode("utf-8")
         payl = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
                                       shell=True).decode("utf-8")
         p = open(payloadFile, "w").write(payl)
@@ -241,18 +265,18 @@ else:
         if formatList == "" or formatList == " ":
             cprint("components have been modified fixing them.....please wait")
             form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",shell=True).decode("utf-8")
-            f = open(formatFile, "w").write(form)
-            formatList = open(formatFile).read()
+            f = writeFileinBase64(formatFile,form)
+            formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
         else:
-            formatList = open(formatFile).read()
+            formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
     else:
         cprint(
-            "The created and saved components have been deleted or moved or client is new.. Re-creating Components.... please be patient",
+            "Creating some components",
             "red")
         form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
                                       shell=True).decode("utf-8")
-        f = open(formatFile, "w").write(form)
-        formatList = open(formatFile).read()
+        f = writeFileinBase64(formatFile, form)
+        formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
 
 
 def reinstall():
@@ -291,7 +315,7 @@ def showInput():
                         print(payloadList)
                 else:
                     cprint(
-                        "The created and saved components have been deleted or moved.. Re-creating Components.... please be patient",
+                        "Creating some components",
                         "red")
                     payl = subprodup.check_output(
                         f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads", shell=True).decode(
@@ -301,11 +325,11 @@ def showInput():
                     print(payloadList)
             else:
                 cprint(
-                    "The created and saved components have been deleted or moved.. Re-creating Components.... please be patient",
+                    "Creating some components",
                     "red")
                 makeFolder()
                 if os.path.exists(payloadFile):
-                    payloadList = open(payloadFile).read()
+                    payloadList = base64.b64decode(open(payloadFile).read()).decode("utf-8")
                     if payloadList == "" or payloadList == " ":
                         cprint("components have been modified fixing them.....please wait", "red")
 
@@ -319,7 +343,7 @@ def showInput():
                         print(payloadList)
                 else:
                     cprint(
-                        "The created and saved components have been deleted or moved.. Re-creating Components.... please be patient",
+                        "Creating some components",
                         "red")
                     payl = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",shell=True).decode("utf-8")
                     payloadF = open(payloadFile, "w").write(payl)
@@ -329,7 +353,7 @@ def showInput():
         elif platformPayload == "swd":
             print("Your current working directory is: " + os.getcwd())
         elif platformPayload == "r-rvc":
-            print("Executing virus-creator again...","green")
+            cprint("Executing virus-creator again...","green")
             os.system("virus-creator.exe")
             sys.exit(0)
         elif platformPayload == "exit-vc" or platformPayload == "ec":
@@ -386,20 +410,20 @@ def showInput():
         elif platformPayload == "lsf":
             if os.path.exists(VirusCreatorFolder):
                 if os.path.exists(formatFile):
-                    formatList = open(formatFile).read()
+                    formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
                     if formatList == "" or formatList == " ":
                         cprint("components have been modified fixing.....please wait")
                         form = subprodup.check_output(
                             f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
                             shell=True).decode("utf-8")
-                        f = open(formatFile, "w").write(form)
-                        formatList = open(formatFile).read()
+                        f = writeFileinBase64(formatFile,form)
+                        formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
                     else:
-                        formatList = open(formatFile).read()
+                        formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
                 else:
                     form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",shell = True).decode("utf-8")
-                    f = open(formatFile, "w").write(form)
-                    formatList = open(formatFile).read()
+                    f = writeFileinBase64(formatFile, form)
+                    formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
 
                 print(formatList)
             else:
@@ -408,18 +432,18 @@ def showInput():
                     "red")
                 makeFolder()
                 if os.path.exists(formatFile):
-                    formatList = open(formatFile).read()
+                    formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
                     if formatList == "" or formatList == " ":
                         cprint("components have been modified fixing.....please wait")
                         form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",shell=True).decode("utf-8")
-                        f = open(formatFile, "w").write(form)
-                        formatList = open(formatFile).read()
+                        f = writeFileinBase64(formatFile, form)
+                        formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
                     else:
-                        formatList = open(formatFile).read()
+                        formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
                 else:
                     form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",shell=True).decode("utf-8")
-                    formatF = open(formatFile, "w").write(form)
-                    formatList = open(formatFile).read()
+                    formatF = writeFileinBase64(formatFile, form)
+                    formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
                 print(formatList)
         elif platformPayload == "r-cvc":
             cprint("Initializing.......", "green")
@@ -485,17 +509,13 @@ def showInput():
                 ipaddressU = input("Please type the ipaddress>> ")
                 if ipaddressU != "my-ip":
                     if os.path.exists(formatFile):
-                        f = open(formatFile).read()
-                        formatList = f
+                        formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
 
                     else:
-                        f = open(formatFile, "w")
+                        form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom --list formats",shell=True).decode("utf-8")
                         cprint("Please be patient a 2 more components to load", "red")
-                        f.write(
-                            subprodup.check_output(
-                                f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom --list formats",
-                                shell=True).decode("utf-8"))
-                        formatList = open(formatFile).read()
+                        writeFileinBase64(formatFile,form)
+                        formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
                     name = input("name of the file you need to name your virus>>")
                     formatPayload = input("please type your format>>")
                     if formatPayload != "lsf":
@@ -509,17 +529,15 @@ def showInput():
                             cprint("Invalid format please type lsf to list all formats", "red", None, attrs=["bold"])
                             while formatPayload not in formatList:
                                 if os.path.exists(formatFile):
-                                    f = open(formatFile).read()
-                                    formatList = f
+                                    formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
 
                                 else:
-                                    f = open(formatFile, "w")
+                                    form = subprodup.check_output(
+                                        f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom --list formats",
+                                        shell=True).decode("utf-8")
                                     cprint("Please be patient a 2 more components to load", "red")
-                                    f.write(
-                                        subprodup.check_output(
-                                            f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom --list formats",
-                                            shell=True).decode("utf-8"))
-                                    formatList = open(formatFile).read()
+                                    writeFileinBase64(formatFile, form)
+                                    formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
                                 formatPayload = input("please type your format>>")
                                 if formatPayload in formatList:
                                     name = input("name of the file you need to name your virus>>")
@@ -537,17 +555,15 @@ def showInput():
                 else:
                     cprint(f"Your ip will be {socket.gethostbyname(socket.gethostname())}", "green")
                     if os.path.exists(formatFile):
-                        f = open(formatFile).read()
-                        formatList = f
+                        formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
 
                     else:
-                        f = open(formatFile, "w")
+                        form = subprodup.check_output(
+                            f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom --list formats",
+                            shell=True).decode("utf-8")
                         cprint("Please be patient a 2 more components to load", "red")
-                        f.write(
-                            subprodup.check_output(
-                                f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom --list formats",
-                                shell=True).decode("utf-8"))
-                        formatList = open(formatFile).read()
+                        writeFileinBase64(formatFile, form)
+                        formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
                     formatPayload = input("please type your format>>")
                     if formatPayload in formatList:
                         name = input("name of the file you need to name your virus>>")
@@ -563,17 +579,15 @@ def showInput():
                             cprint("Invalid format please type lsf to list all formats", "red", None, attrs=["bold"])
                         while formatPayload not in formatList:
                             if os.path.exists(formatFile):
-                                f = open(formatFile).read()
-                                formatList = f
+                                formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
 
                             else:
-                                f = open(formatFile, "w")
+                                form = subprodup.check_output(
+                                    f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom --list formats",
+                                    shell=True).decode("utf-8")
                                 cprint("Please be patient a 2 more components to load", "red")
-                                f.write(
-                                    subprodup.check_output(
-                                        f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom --list formats",
-                                        shell=True).decode("utf-8"))
-                                formatList = open(formatFile).read()
+                                writeFileinBase64(formatFile, form)
+                                formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
                             formatPayload = input("please type your format>>")
                             if formatPayload in formatList:
                                 name = input("name of the file you need to name your virus>>")
