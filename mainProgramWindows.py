@@ -354,7 +354,7 @@ def showInput():
                 else:
                     cprint(
                         "Creating some components",
-                        "red")
+                        "green")
                     payl = subprodup.check_output(
                         f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads", shell=True).decode(
                         "utf-8")
@@ -402,7 +402,7 @@ def showInput():
                 else:
                     cprint("Data files are already deleted....", "green")
                 deleteDesktopShortcut()
-                deleteStartMenuShortcut()
+
                 deleteunwantedFile()
         elif platformPayload == "rvc-ldfs":
             cprint("Removing files created by Virus-Creator except data files")
@@ -666,7 +666,7 @@ def showInput():
                                 cprint("Invalid format please type lsf to list all formats", "red", None,
                                        attrs=["bold"])
         else:
-            if platformPayload != "swd" and platformPayload!="show-history" and platformPayload!="clear-history" and platformPayload!="eth" and platformPayload!="export-the-histories" and platformPayload != "r-cvc" and platformPayload != "risl-vc" and platformPayload != "r-rvc" and platformPayload != "ec" and platformPayload != "ecd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "r-rvc" and platformPayload != "sip":
+            if platformPayload != "swd" and platformPayload!="eth" and platformPayload!="show-history" and platformPayload!="clear-history" and platformPayload!="eth" and platformPayload!="export-the-histories" and platformPayload != "r-cvc" and platformPayload != "risl-vc" and platformPayload != "r-rvc" and platformPayload != "ec" and platformPayload != "ecd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "r-rvc" and platformPayload != "sip":
                 cprint("Unknown command or payload please type lsp to list all payloads", "red", None, attrs=["bold"])
 
 
