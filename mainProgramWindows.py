@@ -439,10 +439,10 @@ def showInput():
               enter-ps1                      to enter ps1 (powershell) command line where you can type ps1 commands  
               remove-virus-creator or rvc    deletes files created by virus creator
               clear-data                     deletes all data files     
-              rvc-ldfs                        deletes files created by virus creator but leaves some data files like desktop shortcut etc  
+              rvc-ldfs                       deletes files created by virus creator but leaves data files like desktop shortcut etc  
               lsp                            list all available payloads
               lsf                            list all available formats
-              r-cvc                          recreates some deleted files like desktop shortcut etc. if you you runned the command 'rvc' or 'rvc-ldf' 
+              r-cvc                          recreates some deleted files like desktop shortcut etc.run this command if you you runned the command 'rvc' or 'rvc-ldf' 
               reinstall-vc or risl-vc        Reinstalls by deleting every files created by virus-creator  
               show-ip or sip                 shows your ip-address
               help                           shows this message
@@ -478,8 +478,8 @@ def showInput():
             payloadF = open(payloadFile, "w").write(payl)
             payloadList = open(payloadFile).read()
         if platformPayload in payloadList:
-            if platformPayload != "swd" and platformPayload != "enter-cmd" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip":
-                cprint("      Type my-ip to automatically check your ip address and submit the ip address", "green",
+            if platformPayload != "swd" and platformPayload != "enter-cmd" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload!="" and platformPayload!=" " and "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".lower() not in platformPayload and len(platformPayload.strip())!=0 :
+                cprint("Type my-ip to automatically check your ip address and submit the ip address", "green",
                        None,
                        attrs=["bold"])
                 ipaddressU = input("Please type the ipaddress>> ")
