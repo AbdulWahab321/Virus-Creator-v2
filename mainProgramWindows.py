@@ -16,10 +16,10 @@ from pyunpack import Archive
 colorama.init()
 VirusCreatorFolder = "c:/Program Files/Virus-Creator-Py/"
 componentsFolder = "c:/Program Files/Virus-Creator-Py/components"
-payloadFile = "c:/Program Files/Virus-Creator-Py/components/PYLDH56.vcdf"
-formatFile = "c:/Program Files/Virus-Creator-Py/components/FTS5273.vcdf"
-pathDataFile = "c:/Program Files/Virus-Creator-Py/components/PDA53HD.vcdf"
-licenseFile = "c:/Program Files/Virus-Creator-Py/components/LC2F34FG.vcdf"
+payloadFile = "c:/Program Files/Virus-Creator-Py/components/PYLDH56.virus-creator-data-file"
+formatFile = "c:/Program Files/Virus-Creator-Py/components/FTS5273.virus-creator-data-file"
+pathDataFile = "c:/Program Files/Virus-Creator-Py/components/PDA53HD.virus-creator-data-file"
+licenseFile = "c:/Program Files/Virus-Creator-Py/components/LC2F34FG.virus-creator-data-file"
 desktopPath = f"c:/Users/{os.getlogin()}/Desktop"
 onedriveDesktop = f"c:/Users/{os.getlogin()}/OneDrive/Desktop"
 onedriveDesktopVccmd = f"c:/Users/{os.getlogin()}/OneDrive/Desktop/virus-creator.lnk"
@@ -59,9 +59,8 @@ def createDataFiles():
         payloadList = open(payloadFile).read()
         if payloadList == "" or payloadList == " ":
             cprint("components have been modified fixing.....please wait")
-            p = open(payloadFile, "w").write(
-                subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
-                                       shell=True).decode("utf-8"))
+            payl = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",shell=True).decode("utf-8")
+            p = open(payloadFile, "w").write(payl)
             payloadList = open(payloadFile).read()
         else:
             payloadList = open(payloadFile).read()
@@ -69,18 +68,17 @@ def createDataFiles():
         cprint(
             "Creating 1st component please wait this component will take a little time....",
             "green")
-        payloadF = open(payloadFile, "w").write(
-            subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
-                                   shell=True).decode("utf-8"))
+        payl = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
+                                      shell=True).decode("utf-8")
+        p = open(payloadFile, "w").write(payl)
         payloadList = open(payloadFile).read()
 
     if os.path.exists(formatFile):
         formatList = open(formatFile).read()
         if formatList == "" or formatList == " ":
             cprint("components have been modified fixing them.....please wait")
-            f = open(formatFile, "w").write(
-                subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
-                                       shell=True).decode("utf-8"))
+            form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",shell=True).decode("utf-8")
+            f = open(formatFile, "w").write(form)
             formatList = open(formatFile).read()
         else:
             formatList = open(formatFile).read()
@@ -88,10 +86,11 @@ def createDataFiles():
         cprint(
             "Creating 2nd component please wait this component will take a little time....",
             "green")
-        formatF = open(formatFile, "w").write(
-            subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
-                                   shell=True).decode("utf-8"))
+        form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
+                                      shell=True).decode("utf-8")
+        f = open(formatFile, "w").write(form)
         formatList = open(formatFile).read()
+
 
 
 def createDesktopShortcut():
@@ -122,7 +121,7 @@ def createDesktopShortcut():
 def createStartMenuShortcut():
     if os.path.exists(
             f"C:/Users/{os.getlogin()}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Virus-creator-py") == False:
-        cprint("Creating Start menu shortcut....")
+        cprint("Creating Start menu shortcut....", "green")
         os.system(f'mkdir "{startMenuPth}/Virus-creator-py"')
         createShortcut(f"{startMenuPth}/Virus-creator-py")
 
@@ -223,9 +222,8 @@ else:
         payloadList = open(payloadFile).read()
         if payloadList == "" or payloadList == " ":
             cprint("components have been modified fixing.....please wait")
-            p = open(payloadFile, "w").write(
-                subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
-                                       shell=True).decode("utf-8"))
+            payl = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",shell=True).decode("utf-8")
+            p = open(payloadFile, "w").write(payl)
             payloadList = open(payloadFile).read()
         else:
             payloadList = open(payloadFile).read()
@@ -233,18 +231,17 @@ else:
         cprint(
             "The created and saved components have been deleted or moved or client is new.. Re-creating Components.... please be patient",
             "red")
-        payloadF = open(payloadFile, "w").write(
-            subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
-                                   shell=True).decode("utf-8"))
+        payl = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
+                                      shell=True).decode("utf-8")
+        p = open(payloadFile, "w").write(payl)
         payloadList = open(payloadFile).read()
 
     if os.path.exists(formatFile):
         formatList = open(formatFile).read()
         if formatList == "" or formatList == " ":
             cprint("components have been modified fixing them.....please wait")
-            f = open(formatFile, "w").write(
-                subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
-                                       shell=True).decode("utf-8"))
+            form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",shell=True).decode("utf-8")
+            f = open(formatFile, "w").write(form)
             formatList = open(formatFile).read()
         else:
             formatList = open(formatFile).read()
@@ -252,9 +249,9 @@ else:
         cprint(
             "The created and saved components have been deleted or moved or client is new.. Re-creating Components.... please be patient",
             "red")
-        formatF = open(formatFile, "w").write(
-            subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
-                                   shell=True).decode("utf-8"))
+        form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
+                                      shell=True).decode("utf-8")
+        f = open(formatFile, "w").write(form)
         formatList = open(formatFile).read()
 
 
@@ -283,10 +280,10 @@ def showInput():
                     payloadList = open(payloadFile).read()
                     if payloadList == "" or payloadList == " ":
                         cprint("components have been modified fixing.....please wait", "red")
-                        p = open(payloadFile, "w").write(
-                            subprodup.check_output(
-                                f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
-                                shell=True).decode("utf-8"))
+                        payl = subprodup.check_output(
+                            f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
+                            shell=True).decode("utf-8")
+                        p = open(payloadFile, "w").write(payl)
                         payloadList = open(payloadFile).read()
                         print(payloadList)
                     else:
@@ -296,10 +293,10 @@ def showInput():
                     cprint(
                         "The created and saved components have been deleted or moved.. Re-creating Components.... please be patient",
                         "red")
-                    payloadF = open(payloadFile, "w").write(
-                        subprodup.check_output(
-                            f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
-                            shell=True).decode("utf-8"))
+                    payl = subprodup.check_output(
+                        f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads", shell=True).decode(
+                        "utf-8")
+                    p = open(payloadFile, "w").write(payl)
                     payloadList = open(payloadFile).read()
                     print(payloadList)
             else:
@@ -311,10 +308,10 @@ def showInput():
                     payloadList = open(payloadFile).read()
                     if payloadList == "" or payloadList == " ":
                         cprint("components have been modified fixing them.....please wait", "red")
-                        p = open(payloadFile, "w").write(
-                            subprodup.check_output(
-                                f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
-                                shell=True).decode("utf-8"))
+
+                        payl = subprodup.check_output(
+                            f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",shell=True).decode("utf-8")
+                        p = open(payloadFile, "w").write(payl)
                         payloadList = open(payloadFile).read()
                         print(payloadList)
                     else:
@@ -334,8 +331,8 @@ def showInput():
         elif platformPayload == "swd":
             print("Your current working directory is: " + os.getcwd())
         elif platformPayload == "r-rvc":
-            ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
-            sys.exit()
+            os.system("virus-creator.exe")
+            sys.exit(0)
         elif platformPayload == "exit-vc" or platformPayload == "ec":
             cprint("Bye see you again......Have a nice day")
             cprint("Exiting program.......", "green")
@@ -357,27 +354,26 @@ def showInput():
         please cut and paste it outside the folder
                                      """, "red", attrs=["bold"])
                     pathtomsf = input("please type the driver you installed metasploit>>")
-                    runps(f"{pathtomsf} -and cd/ -and cd metasploit-framework/bin -and msfremove")
+                    os.system(f"{pathtomsf} && cd/ && cd metasploit-framework/bin && msfremove")
                 cprint("Checking the data files exists or not....", "green")
                 if os.path.exists("c:/Program Files/Virus-Creator-Py"):
                     cprint("Deleting data files....", "green")
                     os.system("c:&&cd/&&cd Program Files&&rmdir /s /q Virus-Creator-Py")
                 else:
                     cprint("Data files are already deleted....", "green")
-                cprint("Deleting Desktop shortcut", "green")
                 deleteDesktopShortcut()
-                cprint("Deleting StartMenu Shortcut", "green")
                 deleteStartMenuShortcut()
+                deleteunwantedFile()
         elif platformPayload == "rvc-ldfs":
             cprint("Removing files created by Virus-Creator except data files")
             metRemoveConF = input("Do you want to remove metasploit? [Y/N]")
             if metRemoveConF.lower() == "y":
                 cprint("""
-                    Don't install metasploit in folder if the metasploit-framework folder is in a folder 
-                    please cut and paste it outside the folder
+    Don't install metasploit in folder if the metasploit-framework folder is in a folder 
+    please cut and paste it outside the folder
                                                  """, "red", attrs=["bold"])
                 pathtomsf = input("please type the driver you installed metasploit>>")
-                runps(f"{pathtomsf} -and cd/ -and cd metasploit-framework/bin -and msfremove")
+                os.system(f"{pathtomsf} && cd/ && cd metasploit-framework/bin && msfremove")
             cprint("Deleting Desktop shortcut", "green")
             deleteDesktopShortcut()
             cprint("Deleting StartMenu Shortcut", "green")
@@ -394,18 +390,16 @@ def showInput():
                     formatList = open(formatFile).read()
                     if formatList == "" or formatList == " ":
                         cprint("components have been modified fixing.....please wait")
-                        f = open(formatFile, "w").write(
-                            subprodup.check_output(
-                                f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
-                                shell=True).decode("utf-8"))
+                        form = subprodup.check_output(
+                            f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
+                            shell=True).decode("utf-8")
+                        f = open(formatFile, "w").write(form)
                         formatList = open(formatFile).read()
                     else:
                         formatList = open(formatFile).read()
                 else:
-                    formatF = open(formatFile, "w").write(
-                        subprodup.check_output(
-                            f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
-                            shell=True).decode("utf-8"))
+                    form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",shell = True).decode("utf-8")
+                    f = open(formatFile, "w").write(form)
                     formatList = open(formatFile).read()
 
                 print(formatList)
@@ -418,18 +412,14 @@ def showInput():
                     formatList = open(formatFile).read()
                     if formatList == "" or formatList == " ":
                         cprint("components have been modified fixing.....please wait")
-                        f = open(formatFile, "w").write(
-                            subprodup.check_output(
-                                f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
-                                shell=True).decode("utf-8"))
+                        form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",shell=True).decode("utf-8")
+                        f = open(formatFile, "w").write(form)
                         formatList = open(formatFile).read()
                     else:
                         formatList = open(formatFile).read()
                 else:
-                    formatF = open(formatFile, "w").write(
-                        subprodup.check_output(
-                            f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",
-                            shell=True).decode("utf-8"))
+                    form = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list formats",shell=True).decode("utf-8")
+                    formatF = open(formatFile, "w").write(form)
                     formatList = open(formatFile).read()
                 print(formatList)
         elif platformPayload == "r-cvc":
@@ -468,7 +458,8 @@ def showInput():
                   .. 
                         """, "green", attrs=["bold"])
 
-        elif platformPayload in payloadList:
+        payloadList = open(payloadFile).read()
+        if platformPayload in payloadList:
             if platformPayload != "swd" and platformPayload != "enter-cmd" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip":
                 cprint("      Type my-ip to automatically check your ip address and submit the ip address", "green",
                        None,
@@ -577,8 +568,8 @@ def showInput():
                                 cprint("Invalid format please type lsf to list all formats", "red", None,
                                        attrs=["bold"])
         else:
-            if platformPayload != "swd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "r-rvc":
-                cprint("Unknown command or payload please type lsp to list all payloads", "red", None, attrs=["bold"])
+            if platformPayload != "swd" and platformPayload!="r-cvc" and platformPayload!="risl-vc" and platformPayload!="r-rvc" and platformPayload!="ec" and platformPayload!="ecd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "r-rvc" and platformPayload!="sip":
+                  cprint("Unknown command or payload please type lsp to list all payloads", "red", None, attrs=["bold"])
 
 
 def cmd():
