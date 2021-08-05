@@ -25,19 +25,21 @@ onedriveDesktop = f"c:/Users/{os.getlogin()}/OneDrive/Desktop"
 onedriveDesktopVccmd = f"c:/Users/{os.getlogin()}/OneDrive/Desktop/virus-creator.lnk"
 desktopVccmd = f"c:/Users/{os.getlogin()}/Desktop/virus-creator.lnk"
 startMenuPth = f"C:/Users/jrabd/AppData/Roaming/Microsoft/Windows/Start Menu/Programs"
-startMenuVc = f"C:/Users/jrabd/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Virus-creator-py/virus-creator.lnk"
+startMenuVc = f"C:/Users/jrabd/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Virus-creator-py"
 licenseData = ""
 
 
 def runps(cmd, outputCapture=False):
     subprocess.run(["powershell", "-Command", cmd], capture_output=outputCapture)
 
+
 def createShortcut(destPath):
     if os.path.exists(f"{os.getcwd()}/shcmpts") == False:
         cprint("Creating Shortcut maker file....", "green")
         os.system(f'mkdir "{os.getcwd()}/shcmpts"')
-        destination = os.path.join(destPath,"virus-creator.lnk")
-        open(f"{os.getcwd()}/shcmpts/createShortcut.vbs", "w").write(f'Set objWS = WScript.CreateObject("WScript.Shell")\nstrLinkFile = "{destination}"\n Set objLink = objWS.CreateShortcut(strLinkFile)\nobjLink.TargetPath = "{os.getcwd()}/virus-creator.exe"\n objLink.Arguments = ""\n objLink.Description = "virus-creator"\n objLink.HotKey = "ALT+CTRL+P"\n objLink.IconLocation = "{os.getcwd()}/cmpts/ml.ico"\n objLink.WindowStyle = "1"\n objLink.WorkingDirectory = "{os.getcwd()}"\n objLink.Save')
+        destination = os.path.join(destPath, "virus-creator.lnk")
+        open(f"{os.getcwd()}/shcmpts/createShortcut.vbs", "w").write(
+            f'Set objWS = WScript.CreateObject("WScript.Shell")\nstrLinkFile = "{destination}"\n Set objLink = objWS.CreateShortcut(strLinkFile)\nobjLink.TargetPath = "{os.getcwd()}/virus-creator.exe"\n objLink.Arguments = ""\n objLink.Description = "virus-creator"\n objLink.HotKey = "ALT+CTRL+P"\n objLink.IconLocation = "{os.getcwd()}/cmpts/ml.ico"\n objLink.WindowStyle = "1"\n objLink.WorkingDirectory = "{os.getcwd()}"\n objLink.Save')
         cprint("Successfully Created shortcut maker file...", "green")
         cprint("Executing shortcut maker file....", "green")
         subprocess.call(['cscript.exe', f'{os.getcwd()}/shcmpts/createShortcut.vbs'])
@@ -52,7 +54,7 @@ def makeFolder():
 
 def createDataFiles():
     makeFolder()
-    cprint("Checking if data files exists or not.....","green")
+    cprint("Checking if data files exists or not.....", "green")
     if os.path.exists(payloadFile):
         payloadList = open(payloadFile).read()
         if payloadList == "" or payloadList == " ":
@@ -91,12 +93,13 @@ def createDataFiles():
                                    shell=True).decode("utf-8"))
         formatList = open(formatFile).read()
 
+
 def createDesktopShortcut():
     if os.path.exists(desktopPath):
         if os.path.exists(desktopVccmd) == False:
             yn = input("Do you want to create Desktop shortcut? [Y/N]")
             if yn.lower() == "y":
-                cprint("Creating Desktop shortcut....","green")
+                cprint("Creating Desktop shortcut....", "green")
                 createShortcut(desktopPath)
             if yn.lower() == "n":
                 cprint("Desktop shortcut won't be created")
@@ -117,7 +120,8 @@ def createDesktopShortcut():
 
 
 def createStartMenuShortcut():
-    if os.path.exists(f"C:/Users/{os.getlogin()}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Virus-creator-py") == False:
+    if os.path.exists(
+            f"C:/Users/{os.getlogin()}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Virus-creator-py") == False:
         cprint("Creating Start menu shortcut....")
         os.system(f'mkdir "{startMenuPth}/Virus-creator-py"')
         createShortcut(f"{startMenuPth}/Virus-creator-py")
@@ -125,13 +129,16 @@ def createStartMenuShortcut():
 
 def deleteStartMenuShortcut():
     if os.path.exists(startMenuVc) == True:
-        cprint("Deleting Start menu shortcut....","green")
-        runps(f"Remove-Item 'C:/Users/{os.getlogin()}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Virus-creator-py' -Force -Recurse")
+        cprint("Deleting Start menu shortcut....", "green")
+        runps(
+            f"Remove-Item 'C:/Users/{os.getlogin()}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Virus-creator-py' -Force -Recurse")
+
 
 def deleteDataFiles():
     if os.path.exists("c:/Program Files/Virus-Creator-Py"):
         cprint("Deleting Data Files....", "green")
         os.system("c:&&cd/&&cd Program Files&&rmdir /s /q Virus-Creator-Py")
+
 
 def deleteunwantedFile():
     if os.path.exists(f"{os.getcwd()}/shcmpts"):
@@ -141,13 +148,14 @@ def deleteunwantedFile():
 
 def deleteDesktopShortcut():
     if os.path.exists(f"c:/Users/{os.getlogin()}/Desktop/virus-creator.lnk"):
-        cprint("Deleting Desktop Shortcut....","green")
+        cprint("Deleting Desktop Shortcut....", "green")
         runps(f'del "c:/Users/{os.getlogin()}/Desktop/virus-creator.lnk"')
     elif os.path.exists(f"c:/Users/{os.getlogin()}/OneDrive/Desktop/virus-creator.lnk"):
         cprint("Deleting Desktop Shortcut....", "green")
         runps(f'del "c:/Users/{os.getlogin()}/OneDrive/Desktop/virus-creator.lnk"')
 
-cprint("Initializing.......","green")
+
+cprint("Initializing.......", "green")
 createDesktopShortcut()
 createStartMenuShortcut()
 deleteunwantedFile()
@@ -196,7 +204,8 @@ else:
         else:
             cprint("DON'T INSTALL METASPLOIT IN FOLDER........It will automaically create a folder and install it",
                    "red", attrs=["bold"])
-            os.system(f"c:&&cd/&&cd Users/{os.getlogin()}/Downloads&&curl https://windows.metasploit.com/metasploitframework-latest.msi --output c:/Program Files/Virus-Creator-Py/components/&&c:&&cd/&&cd Program Files/Virus-Creator-Py/components/&&metasploitframework-latest.msi")
+            os.system(
+                f"c:&&cd/&&cd Users/{os.getlogin()}/Downloads&&curl https://windows.metasploit.com/metasploitframework-latest.msi --output c:/Program Files/Virus-Creator-Py/components/&&c:&&cd/&&cd Program Files/Virus-Creator-Py/components/&&metasploitframework-latest.msi")
             instFin = input("Please type 'Y' if the installation is complete>>")
             if instFin.lower() == "y":
                 if os.path.exists(pathDataFile):
@@ -248,18 +257,20 @@ else:
                                    shell=True).decode("utf-8"))
         formatList = open(formatFile).read()
 
+
 def reinstall():
-    cprint("Please wait this may take a little bit of time....","green")
+    cprint("Please wait this may take a little bit of time....", "green")
     deleteDesktopShortcut()
     deleteStartMenuShortcut()
     deleteDataFiles()
     makeFolder()
-    cprint("Recreating All files.....","green")
-    cprint("Please wait this may take some while....","green")
+    cprint("Recreating All files.....", "green")
+    cprint("Please wait this may take some while....", "green")
     createDesktopShortcut()
     createStartMenuShortcut()
     createDataFiles()
     deleteunwantedFile()
+
 
 def showInput():
     logo.showlogo.showIntroLogo()
@@ -323,7 +334,7 @@ def showInput():
         elif platformPayload == "swd":
             print("Your current working directory is: " + os.getcwd())
         elif platformPayload == "r-rvc":
-            ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable,__file__, None, 1)
+            ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
             sys.exit()
         elif platformPayload == "exit-vc" or platformPayload == "ec":
             cprint("Bye see you again......Have a nice day")
@@ -347,12 +358,12 @@ def showInput():
                                      """, "red", attrs=["bold"])
                     pathtomsf = input("please type the driver you installed metasploit>>")
                     runps(f"{pathtomsf} -and cd/ -and cd metasploit-framework/bin -and msfremove")
-                cprint("Checking the data files exists or not....","green")
+                cprint("Checking the data files exists or not....", "green")
                 if os.path.exists("c:/Program Files/Virus-Creator-Py"):
-                    cprint("Deleting data files....","green")
+                    cprint("Deleting data files....", "green")
                     os.system("c:&&cd/&&cd Program Files&&rmdir /s /q Virus-Creator-Py")
                 else:
-                    cprint("Data files are already deleted....","green")
+                    cprint("Data files are already deleted....", "green")
                 cprint("Deleting Desktop shortcut", "green")
                 deleteDesktopShortcut()
                 cprint("Deleting StartMenu Shortcut", "green")
@@ -446,7 +457,7 @@ def showInput():
               reinstall-vc or risl-vc        Reinstalls by deleting every files created by virus-creator  
               show-ip or sip                 shows your ip-address
               help                           shows this message
-    
+
               How to create a payload?
                   first to create payload type 'lsp' command so you can see a list of payloads
                   then copy the payload you need to make
@@ -566,8 +577,9 @@ def showInput():
                                 cprint("Invalid format please type lsf to list all formats", "red", None,
                                        attrs=["bold"])
         else:
-            if platformPayload != "swd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload!="r-rvc":
+            if platformPayload != "swd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "r-rvc":
                 cprint("Unknown command or payload please type lsp to list all payloads", "red", None, attrs=["bold"])
+
 
 def cmd():
     cprint("Type 'exit-cmd' command to exit", "green", None, attrs=["bold"])
@@ -592,10 +604,10 @@ def cmd():
 def makedirandmovefile(nameofFile, formatType):
     cprint("""
         Where do you want to move the file to existing folder or create new folder
-    
+
         1) I want to move to a existing folder
         2) I want to create a new folder and move the file
-    
+
         """, "green", attrs=["bold"])
     confirmToExistingOrNew = input("number>> ")
     if confirmToExistingOrNew == "2":
@@ -617,10 +629,10 @@ def makedirandmovefile(nameofFile, formatType):
         while confirmToExistingOrNew != "1" and confirmToExistingOrNew != "2":
             cprint("""
                 Where do you want to move the file to existing folder or create new folder
-    
+
                 1) I want to move to a existing folder
                 2) I want to create a new folder and move the file
-    
+
                 """, "green", attrs=["bold"])
             confirmToExistingOrNew = input("number>>")
             if confirmToExistingOrNew == "2":
@@ -693,13 +705,13 @@ def prntLicense():
                                Created by AbdulWahab
                                *********************
                                   With Metasploit
-    
+
                           This app is created with metasploit
         =========================================================================
                             License Agreement Of metasploit
                           ==================================
                           Copyright (C) 2006-2015, Rapid7, Inc.
-    
+
                     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
                     CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
                     INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -714,14 +726,14 @@ def prntLicense():
                     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
                     OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
                     POSSIBILITY OF SUCH DAMAGE.
-    
+
                     ========================================================
-    
+
                     The Metasploit Framework is provided under the 3-clause
                     BSD license above.
-    
+
                     The copyright on this package is held by Rapid7, Inc.
-    
+
                     This license does not apply to several components within
                     the Metasploit Framework source tree.  For more details
                     see the LICENSE file at
