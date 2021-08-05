@@ -321,10 +321,8 @@ def showInput():
                     cprint(
                         "The created and saved components have been deleted or moved.. Re-creating Components.... please be patient",
                         "red")
-                    payloadF = open(payloadFile, "w").write(
-                        subprodup.check_output(
-                            f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
-                            shell=True).decode("utf-8"))
+                    payl = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",shell=True).decode("utf-8")
+                    payloadF = open(payloadFile, "w").write(payl)
                     payloadList = open(payloadFile).read()
                     print(payloadList)
 
@@ -458,7 +456,26 @@ def showInput():
                   .. 
                         """, "green", attrs=["bold"])
 
-        payloadList = open(payloadFile).read()
+        if os.path.exists(payloadFile):
+            payloadList = open(payloadFile).read()
+            if payloadList == "" or payloadList == " ":
+                cprint("components have been modified fixing them.....please wait", "red")
+
+                payl = subprodup.check_output(
+                    f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads", shell=True).decode(
+                    "utf-8")
+                p = open(payloadFile, "w").write(payl)
+                payloadList = open(payloadFile).read()
+            else:
+                payloadList = open(payloadFile).read()
+        else:
+            cprint(
+                "The created and saved components have been deleted or moved.. Re-creating Components.... please be patient",
+                "red")
+            payl = subprodup.check_output(f"{pathData}&&cd/&&cd metasploit-framework/bin && msfvenom --list payloads",
+                                          shell=True).decode("utf-8")
+            payloadF = open(payloadFile, "w").write(payl)
+            payloadList = open(payloadFile).read()
         if platformPayload in payloadList:
             if platformPayload != "swd" and platformPayload != "enter-cmd" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip":
                 cprint("      Type my-ip to automatically check your ip address and submit the ip address", "green",
