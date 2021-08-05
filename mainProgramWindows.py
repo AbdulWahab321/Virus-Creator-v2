@@ -94,12 +94,26 @@ def createDataFiles():
 def createDesktopShortcut():
     if os.path.exists(desktopPath):
         if os.path.exists(desktopVccmd) == False:
-            cprint("Creating Desktop shortcut....","green")
-            createShortcut(desktopPath)
+            yn = input("Do you want to create Desktop shortcut? [Y/N]")
+            if yn.lower() == "y":
+                cprint("Creating Desktop shortcut....","green")
+                createShortcut(desktopPath)
+            if yn.lower() == "n":
+                cprint("Desktop shortcut won't be created")
+            else:
+                cprint("Creating Desktop shortcut....", "green")
+                createShortcut(desktopPath)
     elif os.path.exists(onedriveDesktop):
         if os.path.exists(onedriveDesktopVccmd) == False:
-            cprint("Creating Desktop shortcut....","green")
-            createShortcut(onedriveDesktop)
+            yn = input("Do you want to create Desktop shortcut? [Y/N]")
+            if yn.lower() == "y":
+                cprint("Creating Desktop shortcut....", "green")
+                createShortcut(onedriveDesktop)
+            if yn.lower() == "n":
+                cprint("Desktop shortcut won't be created")
+            else:
+                cprint("Creating Desktop shortcut....", "green")
+                createShortcut(onedriveDesktop)
 
 
 def createStartMenuShortcut():
