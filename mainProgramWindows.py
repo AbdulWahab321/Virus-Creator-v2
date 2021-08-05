@@ -494,8 +494,16 @@ def showInput():
         elif platformPayload == "clear-history":
             if os.path.exists(historyFile):
                 open(historyFile,"w").write("")
+                cprint("Successfully cleared all histories...","green")
             else:
                 cprint("You don't have any histories currently...","green")
+        elif platformPayload == "show-history":
+            if os.path.exists(historyFile):
+                cprint("Showing histories...","green")
+                his = open(historyFile).read()
+                print(his)
+            else:
+                cprint("You don't have any histories currently...", "green")
         elif platformPayload == "r-cvc":
             cprint("Initializing.......", "green")
             createDesktopShortcut()
@@ -512,6 +520,7 @@ def showInput():
               swd                            shows you the current working directory
               export-the-histories or eth    to write all your histories in a MyVirusHistory.txt file
               exit-vc or ec                  to exit virus-creator app (this program)
+              show-history                   shows your histories
               enter-ps1                      to enter ps1 (powershell) command line where you can type ps1 commands  
               remove-virus-creator or rvc    deletes files created by virus creator
               clear-history                  clears your history containing when you created path name etc YOU WILL LOSE YOUR HISTORY ONLY IF YOU DIDN'T EXPORT THEM OR DELETED THE EXPORTED ONE
@@ -657,7 +666,7 @@ def showInput():
                                 cprint("Invalid format please type lsf to list all formats", "red", None,
                                        attrs=["bold"])
         else:
-            if platformPayload != "swd" and platformPayload!="clear-history" and platformPayload!="eth" and platformPayload!="export-the-histories" and platformPayload != "r-cvc" and platformPayload != "risl-vc" and platformPayload != "r-rvc" and platformPayload != "ec" and platformPayload != "ecd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "r-rvc" and platformPayload != "sip":
+            if platformPayload != "swd" and platformPayload!="show-history" and platformPayload!="clear-history" and platformPayload!="eth" and platformPayload!="export-the-histories" and platformPayload != "r-cvc" and platformPayload != "risl-vc" and platformPayload != "r-rvc" and platformPayload != "ec" and platformPayload != "ecd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "r-rvc" and platformPayload != "sip":
                 cprint("Unknown command or payload please type lsp to list all payloads", "red", None, attrs=["bold"])
 
 
