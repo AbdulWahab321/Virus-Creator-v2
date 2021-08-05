@@ -329,6 +329,7 @@ def showInput():
         elif platformPayload == "swd":
             print("Your current working directory is: " + os.getcwd())
         elif platformPayload == "r-rvc":
+            print("Executing virus-creator again...","green")
             os.system("virus-creator.exe")
             sys.exit(0)
         elif platformPayload == "exit-vc" or platformPayload == "ec":
